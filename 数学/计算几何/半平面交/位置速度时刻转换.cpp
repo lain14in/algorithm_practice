@@ -1,4 +1,5 @@
 //https://acm.hdu.edu.cn/showproblem.php?pid=2297
+//超时，看下方注释代码
 #include<bits/stdc++.h>
 using namespace std;
 using ll=long long;
@@ -75,3 +76,48 @@ int main(){
     while(T--)solve();
     return 0;
 }
+
+/*
+#include<bits/stdc++.h>
+using namespace std;
+using ll=long long;
+using i128=__int128;
+const int N=2e5+5,mod=1e9+7;
+
+struct Line{
+    ll p,v;
+    bool operator < (const Line &B)const{
+        return v<B.v;
+    }
+};
+
+bool check(Line A,Line B,Line C){//B是否不可能独自领跑
+    return (i128)(A.p-B.p)*(C.v-B.v)
+         >=(i128)(B.p-C.p)*(B.v-A.v);
+}
+
+void solve(){
+    int n;cin>>n;
+    vector<Line>a(n),st;
+    for(int i=0;i<n;++i)cin>>a[i].p>>a[i].v;
+    sort(a.begin(),a.end());
+    for(int i=0;i<n;++i){
+        while(st.size()>=2
+              &&check(st[st.size()-2],st.back(),a[i]))
+            st.pop_back();
+        st.push_back(a[i]);
+    }
+    ll ans=1;//速度最大的运动员最终一定独自领跑
+    for(int i=0;i+1<(int)st.size();++i){
+        //与下一条直线的交点时间>0，才有机会在t>=0领跑
+        if(st[i].p>st[i+1].p)++ans;
+    }
+    cout<<ans<<'\n';
+}
+int main(){
+    ios::sync_with_stdio(0);cin.tie(0);
+    int T;cin>>T;
+    while(T--)solve();
+    return 0;
+}
+*/
